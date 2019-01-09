@@ -21,6 +21,6 @@ First line of input file should contain two positive integers: <b>number of card
 Run terminal / cmdline and go to the containing directory. Run compiler:<br>
 <code>g++ card_game.cpp -o card_game</code><br>
 Then give your input file as command line argument and run the code:<br>
-<br><code>./card_game example.game  //for linux<br>card_game example.game  //for windows</code><br>
+<code>./card_game example.game  //for linux<br>card_game example.game  //for windows</code><br>
 Then program prints the number of cards in the bin:<br>
 <code>> g++ card_game.cpp -o card_game<br>> card_game example.game<br>> 2<</code>
