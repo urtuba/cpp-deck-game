@@ -1,5 +1,5 @@
 // Author: Samed Kahyaoglu
-// Student Num: 150160718
+// Github: urtuba
 
 #include <iostream>
 #include <fstream>
