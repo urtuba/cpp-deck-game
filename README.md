@@ -18,19 +18,9 @@ The winners is the player who can give all the cards in her deck. But this progr
 First line of input file should contain two positive integers: <b>number of cards in the table deck <em>t</em></b>, whitespace and <b>number of cards in the player's deck<em>p</em></b>. (just one for two players because they starts with same number of cards). Then there are series of lines which contains one integer per one. First <b><em>t</em></b> lines for cards in the table, then <b><em>p</em></b> lines for first player's cards, finally last <b><em>p</em></b> lines for second player's deck.
 
 #### Use
-Run terminal / cmdline and go to the containing directory. Run compiler:
-<code>
-  g++ card_game.cpp -o card_game
-</code>
-Then give your input file as command line argument and run the code:
-<code>
-  ./card_game example.game  //for linux
-  
-  card_game example.game  //for windows
-</code>
-Then program prints the number of cards in the bin:
-<code>
-  > g++ card_game.cpp -o card_game
-  > card_game example.game
-  > 2
- </code>
+Run terminal / cmdline and go to the containing directory. Run compiler:<br>
+<code>g++ card_game.cpp -o card_game</code><br>
+Then give your input file as command line argument and run the code:<br>
+<br><code>./card_game example.game  //for linux<br>card_game example.game  //for windows</code><br>
+Then program prints the number of cards in the bin:<br>
+<code>> g++ card_game.cpp -o card_game<br>> card_game example.game<br>> 2<</code>
