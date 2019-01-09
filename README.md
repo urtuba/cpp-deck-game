@@ -1,5 +1,5 @@
 # cpp_deck_game
-It is not a game or usefull game tracking app. It's written with learning purpose. It contains <strong>dynamic memmory alocation</strong> to implement <strong>stack</strong>s which is subject of <strong>data structures</strong>
+It is not a game or usefull game tracking app. It's written with learning purpose. It uses <strong>dynamic memmory alocation</strong> to implement <strong>stack</strong>s which is subject of <strong>data structures</strong>
 
 ## Gameplay
 
