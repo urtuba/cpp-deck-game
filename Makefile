@@ -1,5 +1,5 @@
 CXX ?= c++
-CXXFLAGS = -std=c++17 -Wall -Wextra -Wpedantic -O2
+CXXFLAGS = -std=c++17 -Wall -Wextra -Wpedantic -Werror -O2
 
 all: card_game
 
