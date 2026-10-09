@@ -2,8 +2,13 @@
 # Run every tests/cases/NAME.game against the program given as $1.
 # The program gets NAME.game as its only argument, unless the file NAME.args
 # exists: then its words are the arguments instead (the .game file is
-# ignored). The program runs inside tests/cases, so paths in .args and in
-# error messages are relative to that directory.
+# ignored). An empty NAME.args means no arguments. NAME.game is always
+# the standard input of the program, so with no arguments the program
+# reads the game from stdin.
+# A valid case (no NAME.args, exit status 0) is run a second time with no
+# arguments and the game on stdin, and must give the same result.
+# The program runs inside tests/cases, so paths in .args and in error
+# messages are relative to that directory.
 # Compares stdout with NAME.out, the exit status with NAME.code (default 0)
 # and stderr with NAME.err (only if the file exists).
 
@@ -16,24 +21,16 @@ cd "$dir" || exit 1
 
 pass=0
 fail=0
-for game in *.game; do
-    name=$(basename "$game" .game)
+
+# run_case LABEL NAME [ARG...]: run the program on NAME.game's expectations.
+run_case() {
+    label=$1
+    name=$2
+    shift 2
     ok=1
 
-    if [ -f "$name.args" ]; then
-        set -f
-        set -- $(cat "$name.args")
-        set +f
-    else
-        set -- "$game"
-    fi
-    "$bin" "$@" > "$tmp/out" 2> "$tmp/err"
+    "$bin" "$@" < "$name.game" > "$tmp/out" 2> "$tmp/err"
     status=$?
-
-    expected_code=0
-    if [ -f "$name.code" ]; then
-        expected_code=$(cat "$name.code")
-    fi
 
     if ! cmp -s "$tmp/out" "$name.out"; then
         echo "  stdout differs"
@@ -49,11 +46,32 @@ for game in *.game; do
     fi
 
     if [ "$ok" -eq 1 ]; then
-        echo "PASS $name"
+        echo "PASS $label"
         pass=$((pass + 1))
     else
-        echo "FAIL $name"
+        echo "FAIL $label"
         fail=$((fail + 1))
+    fi
+}
+
+for game in *.game; do
+    name=$(basename "$game" .game)
+
+    expected_code=0
+    if [ -f "$name.code" ]; then
+        expected_code=$(cat "$name.code")
+    fi
+
+    if [ -f "$name.args" ]; then
+        set -f
+        set -- $(cat "$name.args")
+        set +f
+        run_case "$name" "$name" "$@"
+    else
+        run_case "$name" "$name" "$game"
+        if [ "$expected_code" -eq 0 ]; then
+            run_case "$name (stdin)" "$name"
+        fi
     fi
 done
 

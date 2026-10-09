@@ -269,23 +269,31 @@ private:
     }
 };
 
-int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cerr << "usage: card_game GAME_FILE\n";
-        return 2;
-    }
-    std::ifstream file(argv[1]);
-    if (!file) {
-        std::cerr << "error: cannot open " << argv[1] << '\n';
-        return 1;
-    }
+// Loads the game from the stream, plays it and prints the bin count.
+// Returns the exit status.
+int run(std::istream& in) {
     try {
         Game game;
-        game.load(file);
+        game.load(in);
         std::cout << game.play() << '\n';
     } catch (const InputError& e) {
         std::cerr << "error: " << e.what() << '\n';
         return 1;
     }
     return 0;
+}
+
+int main(int argc, char* argv[]) {
+    if (argc > 2) {
+        std::cerr << "usage: card_game [GAME_FILE]\n";
+        return 2;
+    }
+    if (argc == 1) return run(std::cin);
+
+    std::ifstream file(argv[1]);
+    if (!file) {
+        std::cerr << "error: cannot open " << argv[1] << '\n';
+        return 1;
+    }
+    return run(file);
 }
