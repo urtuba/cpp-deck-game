@@ -3,7 +3,7 @@
 // Restored: 2026
 
 #include <cctype>
-#include <cstdlib>
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -173,8 +173,8 @@ public:
             int card = table_.pop();
             if (card < 0) {
                 // Player 1 gives |card| cards to player 2.
-                int count = std::abs(card);
-                for (int i = 0; i < count; i++) {
+                long long count = -static_cast<long long>(card);  // INT_MIN safe
+                for (long long i = 0; i < count; i++) {
                     if (player1_.empty()) break;
                     give(player1_, player2_);
                 }
@@ -192,8 +192,8 @@ public:
             card = table_.pop();
             if (card < 0) {
                 // Player 2 gives |card| cards to player 1.
-                int count = std::abs(card);
-                for (int i = 0; i < count; i++) {
+                long long count = -static_cast<long long>(card);  // INT_MIN safe
+                for (long long i = 0; i < count; i++) {
                     if (player1_.empty() || player2_.empty()) break;
                     give(player2_, player1_);
                 }
